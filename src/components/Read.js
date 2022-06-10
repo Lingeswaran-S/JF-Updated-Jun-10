@@ -5,12 +5,13 @@ function Read() {
   const location = useLocation();
   const { req } = location.state;
   const { name } = location.state;
+  const { link } = location.state;
   let reqList = [];
   function process() {
     console.log("pro reach");
 
     for (const key in req) {
-      if (key !== "company" && key !== "id") {
+      if (key !== "company" && key !== "id" && key !== "regLink") {
         reqList.push([key, req[key]]);
       }
     }
@@ -42,6 +43,29 @@ function Read() {
                   </td>
                 </tr>
               ))}
+              <tr>
+                <td colSpan={2}>
+                  <a href={link} target="_blank">
+                    <button
+                      class="btn btn-info mt-2 container "
+                      style={{ display: link !== "Not" ? "block" : "none" }}
+                    >
+                      {link !== "Not" ? "Apply/Register" : "Link Not Available"}
+                    </button>
+                  </a>
+                  <span
+                    style={{
+                      display: link !== "Not" ? "none" : "block",
+                      color: "red",
+                    }}
+                  >
+                    Link not available
+                    <div style={{ color: "green" }}>
+                      Please contact Organization
+                    </div>
+                  </span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

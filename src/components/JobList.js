@@ -3,6 +3,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function JobList() {
+  const sty = {
+    tableLayout: "fixed",
+    width: "600%",
+    padding: 20,
+  };
   let [arrayList, setArrayList] = React.useState([]);
   function reloadPage() {
     window.location.reload();
@@ -30,27 +35,39 @@ function JobList() {
         >
           <strong class="text-white">Reload</strong>
         </button>
-        <table class="table mt-2">
+        <table class="table mt-2 align-middle">
           <tbody class="thead-light">
-            {arrayList.map((data, ind) => (
-              <tr key={ind}>
-                <Link
-                  to={{
-                    pathname: "/read",
-                    state: {
-                      name: data.company,
-                      req: data,
-                    },
-                  }}
-                >
-                  <button class="btn btn-secondary mb-1 ">
-                    <strong class="text-white">{data.company}</strong>
-                  </button>
-                </Link>
-
-                {/* {console.log(data.req.exp)} */}
-              </tr>
-            ))}
+            {arrayList.map((data, ind) => {
+              let regLink = "https://linktr.ee/faceprep";
+              return (
+                <tr key={ind}>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: "/read",
+                        state: {
+                          name: data.company,
+                          req: data,
+                          link:
+                            data.regLink !== undefined ? data.regLink : "Not",
+                          // data.regLink !== undefined ? data.regLink : "Not",
+                        },
+                      }}
+                    >
+                      <button class="btn btn-secondary mb-1 ">
+                        <strong class="text-white">{data.company}</strong>
+                      </button>
+                      {/* <span>{data}</span> */}
+                    </Link>
+                  </td>
+                  <td>
+                    <em style={{ color: "red" }}>
+                      {data.endDate !== undefined ? data.endDate : "?"}
+                    </em>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
